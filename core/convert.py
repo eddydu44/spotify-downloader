@@ -36,7 +36,7 @@ def convert_with_avconv(input_song, output_song, folder):
         level = '0'
 
     command = ['avconv', '-loglevel', level, '-i',
-               os.path.join(folder, input_song), '-ab', '192k',
+               os.path.join(folder, input_song), '-ab', '320k',
                os.path.join(folder, output_song)]
 
     log.debug(command)
@@ -56,15 +56,15 @@ def convert_with_ffmpeg(input_song, output_song, folder):
 
     if input_ext == 'm4a':
         if output_ext == 'mp3':
-            ffmpeg_params = '-codec:v copy -codec:a libmp3lame -q:a 2 '
+            ffmpeg_params = '-codec:v copy -codec:a libmp3lame -q:a 0 '
         elif output_ext == 'webm':
-            ffmpeg_params = '-c:a libopus -vbr on -b:a 192k -vn '
+            ffmpeg_params = '-c:a libopus -vbr on -b:a 320k -vn '
 
     elif input_ext == 'webm':
         if output_ext == 'mp3':
             ffmpeg_params = ' -ab 192k -ar 44100 -vn '
         elif output_ext == 'm4a':
-            ffmpeg_params = '-cutoff 20000 -c:a libfdk_aac -b:a 192k -vn '
+            ffmpeg_params = '-cutoff 20000 -c:a libfdk_aac -b:a 1320k -vn '
 
     command = '{0}-i {1} {2}{3}'.format(
         ffmpeg_pre, os.path.join(folder, input_song),
